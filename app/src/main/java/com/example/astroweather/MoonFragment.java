@@ -109,10 +109,6 @@ public class MoonFragment extends Fragment {
                                 faza.setText((astro.getMoonInfo().getIllumination() + "").substring(0,4) + "%");
 
 
-
-
-                                //AstroCalculator astro2 = new AstroCalculator(new AstroDateTime(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH) - 29, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND), 2, true) ,new AstroCalculator.Location(latitude, longitude));
-
                                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
                                 try {
@@ -126,7 +122,6 @@ public class MoonFragment extends Fragment {
                                     e.printStackTrace();
                                 }
 
-                               // Toast.makeText(getActivity().getApplicationContext(), "Synch", Toast.LENGTH_LONG).show();
                             }
                         });
                         Thread.sleep(1000 * parseInt(time));
