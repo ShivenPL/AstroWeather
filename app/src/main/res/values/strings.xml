@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">AstroWeather</string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="wschod">Wschód</string>
+    <string name="zachod">Zachód</string>
+    <string name="now">Nów</string>
+    <string name="pelnia">Pełnia</string>
+    <string name="faza">Faza księżyca</string>
+    <string name="syno">Dzień miesiąca synodycznego</string>
+    <string name="zmierzch">Zmierzch</string>
+    <string name="swit">Świt</string>
+
+
+    <string name="pref_sync_default_value">1 minuta</string>
+
+    <string-array name="pref_sync_entries">
+        <item>5 sekund</item>
+        <item>10 sekund</item>
+        <item>30 sekund</item>
+        <item>1 minuta</item>
+        <item>5 minut</item>
+    </string-array>
+
+    <string-array name="pref_sync_values">
+        <item>5</item>
+        <item>10</item>
+        <item>30</item>
+        <item>60</item>
+        <item>300</item>
+    </string-array>
+</resources>
