@@ -3,7 +3,6 @@ package com.example.astroweather;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -97,7 +96,7 @@ public class MoonFragment extends Fragment {
 
                                 Calendar calendar =  Calendar.getInstance(TimeZone.getDefault());
 
-                                AstroCalculator astro = new AstroCalculator(new AstroDateTime(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND), 2, true) ,new AstroCalculator.Location(latitude, longitude));
+                                AstroCalculator astro = new AstroCalculator(new AstroDateTime(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND), (int) TimeUnit.HOURS.convert(calendar.getTimeZone().getRawOffset(), TimeUnit.MILLISECONDS), true) ,new AstroCalculator.Location(latitude, longitude));
 
                                 wschod.setText(astro.getMoonInfo().getMoonrise().toString().substring(10,16));
 
@@ -107,7 +106,8 @@ public class MoonFragment extends Fragment {
 
                                 pelnia.setText(astro.getMoonInfo().getNextFullMoon().toString().substring(0,16));
 
-                                faza.setText((astro.getMoonInfo().getIllumination() + "").substring(0,4) + "%");
+
+                                faza.setText(((parseDouble(astro.getMoonInfo().getIllumination() + "") * 100) + "").substring(0,3) + "%");
 
 
                                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");

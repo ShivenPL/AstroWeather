@@ -16,6 +16,7 @@ import com.astrocalculator.AstroDateTime;
 
 import java.util.Calendar;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
@@ -88,7 +89,7 @@ public class SunFragment extends Fragment {
 
                                 Calendar calendar =  Calendar.getInstance(TimeZone.getDefault());
 
-                                AstroCalculator astro = new AstroCalculator(new AstroDateTime(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND), 2, true) ,new AstroCalculator.Location(latitude, longitude));
+                                AstroCalculator astro = new AstroCalculator(new AstroDateTime(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND), (int) TimeUnit.HOURS.convert(calendar.getTimeZone().getRawOffset(), TimeUnit.MILLISECONDS), true) ,new AstroCalculator.Location(latitude, longitude));
 
                                 wschod.setText(astro.getSunInfo().getSunrise().toString().substring(10,16));
                                 wschodaz.setText(astro.getSunInfo().getAzimuthRise() + "");
