@@ -54,7 +54,7 @@ public class MoonFragment extends Fragment {
                             return;
 
                         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-                        String time = sharedPreferences.getString("pref_sync", "30");
+                        String time = sharedPreferences.getString("pref_sync", "5");
                         MoonFragment.this.getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -108,7 +108,6 @@ public class MoonFragment extends Fragment {
 
 
                                 faza.setText(((parseDouble(astro.getMoonInfo().getIllumination() + "") * 100) + "").substring(0,4) + "%");
-
 
                                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 

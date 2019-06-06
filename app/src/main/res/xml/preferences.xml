@@ -28,7 +28,7 @@
             android:title="Czas odświeżania"
             android:entries="@array/pref_sync_entries"
             android:entryValues="@array/pref_sync_values"
-            android:defaultValue="30"
+            android:defaultValue="5"
             android:summary="%s"/>
     </PreferenceCategory>
 
