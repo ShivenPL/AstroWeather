@@ -107,7 +107,7 @@ public class MoonFragment extends Fragment {
                                 pelnia.setText(astro.getMoonInfo().getNextFullMoon().toString().substring(0,16));
 
 
-                                faza.setText(((parseDouble(astro.getMoonInfo().getIllumination() + "") * 100) + "").substring(0,3) + "%");
+                                faza.setText(((parseDouble(astro.getMoonInfo().getIllumination() + "") * 100) + "").substring(0,4) + "%");
 
 
                                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");

@@ -1,5 +1,6 @@
 package com.example.astroweather;
 
+import android.app.ActivityManager;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -99,7 +100,16 @@ public class SunFragment extends Fragment {
 
                                 zmierzch.setText(astro.getSunInfo().getTwilightEvening().toString().substring(10,16));
                                 swit.setText(astro.getSunInfo().getTwilightMorning().toString().substring(10,16));
-                                Toast.makeText(getActivity().getApplicationContext(), "Synch", Toast.LENGTH_LONG).show();
+
+                                ActivityManager.RunningAppProcessInfo myProcess = new ActivityManager.RunningAppProcessInfo();
+                                ActivityManager.getMyMemoryState(myProcess);
+
+                                Boolean isInBackground = myProcess.importance != ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
+                                if(isInBackground) {
+
+                                }else {
+                                    Toast.makeText(getActivity().getApplicationContext(), "Synch", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         });
                         Thread.sleep(1000 * parseInt(time));
