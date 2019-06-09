@@ -39,6 +39,10 @@ public class SunFragment extends Fragment {
         final TextView zmierzch = rootView.findViewById(R.id.zmierzchInput);
         final TextView swit = rootView.findViewById(R.id.switInput);
 
+        final TextView wsporzedne = rootView.findViewById(R.id.wspolrzedne);
+
+
+
         Thread t = new Thread() {
             @Override
             public void run() {
@@ -100,6 +104,7 @@ public class SunFragment extends Fragment {
 
                                 zmierzch.setText(astro.getSunInfo().getTwilightEvening().toString().substring(10,16));
                                 swit.setText(astro.getSunInfo().getTwilightMorning().toString().substring(10,16));
+                                wsporzedne.setText((latitude + "").substring(0,4) + ", " + (longitude + "").substring(0,4));
 
                                 ActivityManager.RunningAppProcessInfo myProcess = new ActivityManager.RunningAppProcessInfo();
                                 ActivityManager.getMyMemoryState(myProcess);

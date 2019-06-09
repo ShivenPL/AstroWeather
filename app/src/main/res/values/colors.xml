@@ -4,6 +4,6 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="backgroundColor">#8DE4E469</color>
-    <color name="tilesColor">#ffffff</color>
-    <color name="backgroundColorMoon">#CE0B0053</color>
+    <color name="tilesColor">#ADFFFFFF</color>
+    <color name="backgroundColorMoon">#CE0B006D</color>
 </resources>

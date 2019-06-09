@@ -41,6 +41,7 @@ public class MoonFragment extends Fragment {
         final TextView faza = rootView.findViewById(R.id.fazaInput);
         final TextView syn = rootView.findViewById(R.id.synoInput);
 
+        final TextView wsporzedne = rootView.findViewById(R.id.wspolrzedne);
 
 
 
@@ -106,8 +107,11 @@ public class MoonFragment extends Fragment {
 
                                 pelnia.setText(astro.getMoonInfo().getNextFullMoon().toString().substring(0,16));
 
+                                wsporzedne.setText((latitude + "").substring(0,4) + ", " + (longitude + "").substring(0,4));
+
 
                                 faza.setText(((parseDouble(astro.getMoonInfo().getIllumination() + "") * 100) + "").substring(0,4) + "%");
+
 
                                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
