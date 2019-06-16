@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         float xInches= metrics.widthPixels/metrics.xdpi;
         double diagonalInches = Math.sqrt(xInches*xInches + yInches*yInches);
         if (diagonalInches>=6.5){
-            if(getWindowManager().getDefaultDisplay().getRotation() == Surface.ROTATION_90 || getWindowManager().getDefaultDisplay().getRotation() == Surface.ROTATION_270)
+            if(getWindowManager().getDefaultDisplay().getRotation() == Surface.ROTATION_0 || getWindowManager().getDefaultDisplay().getRotation() == Surface.ROTATION_180)
             {
                 setContentView(R.layout.tablet_layout);
                 Toolbar toolbar = findViewById(R.id.toolbar);

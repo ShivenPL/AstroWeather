@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,31 +25,29 @@ import static java.lang.Integer.parseInt;
 
 
 public class SunFragment extends Fragment {
+    Thread thread;
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(R.layout.sun_layout, container, false);
-        final TextView wschod = rootView.findViewById(R.id.wschodCzasInput);
-        final TextView wschodaz = rootView.findViewById(R.id.wschodAzymutInput);
+    TextView wschod ;
+    TextView wschodaz;
 
-        final TextView zachod = rootView.findViewById(R.id.zachodCzasInput);
-        final TextView zachodaz = rootView.findViewById(R.id.zachodAzymutInput);
+    TextView zachod;
+    TextView zachodaz;
 
-        final TextView zmierzch = rootView.findViewById(R.id.zmierzchInput);
-        final TextView swit = rootView.findViewById(R.id.switInput);
+    TextView zmierzch;
+    TextView swit;
 
-        final TextView wsporzedne = rootView.findViewById(R.id.wspolrzedne);
+    TextView wsporzedne;
+
+    Boolean isCreated = false;
 
 
 
-        Thread t = new Thread() {
+    public void doThis(){
+        thread = new Thread() {
             @Override
             public void run() {
                 try {
                     while (!isInterrupted()) {
-
                         if(getActivity() == null)
                             return;
 
@@ -63,6 +62,17 @@ public class SunFragment extends Fragment {
                                 String longitudeS = sharedPreferences.getString("longitude", "19.455891");
 
                                 double latitude = parseDouble(latitudeS);
+
+                                ActivityManager.RunningAppProcessInfo myProcess = new ActivityManager.RunningAppProcessInfo();
+                                ActivityManager.getMyMemoryState(myProcess);
+
+                                Boolean isInBackground = myProcess.importance != ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
+
+                                if(isInBackground) {
+
+                                }else {
+
+                                }
 
 
                                 if(latitude > 78.999999)
@@ -106,15 +116,13 @@ public class SunFragment extends Fragment {
                                 swit.setText(astro.getSunInfo().getTwilightMorning().toString().substring(10,16));
                                 wsporzedne.setText((latitude + "").substring(0,4) + ", " + (longitude + "").substring(0,4));
 
-                                ActivityManager.RunningAppProcessInfo myProcess = new ActivityManager.RunningAppProcessInfo();
-                                ActivityManager.getMyMemoryState(myProcess);
 
-                                Boolean isInBackground = myProcess.importance != ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
-                                if(isInBackground) {
+                                Toast.makeText(getActivity().getApplicationContext(), "Synch", Toast.LENGTH_SHORT).show();
 
-                                }else {
-                                    Toast.makeText(getActivity().getApplicationContext(), "Synch", Toast.LENGTH_SHORT).show();
-                                }
+                                Log.println(1,"", "Odswieżam");
+
+
+
                             }
                         });
                         Thread.sleep(1000 * parseInt(time));
@@ -123,8 +131,45 @@ public class SunFragment extends Fragment {
                 }
             }
         };
-        t.start();
+        thread.start();
+    }
+
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        View rootView = inflater.inflate(R.layout.sun_layout, container, false);
+        wschod = rootView.findViewById(R.id.wschodCzasInput);
+        wschodaz = rootView.findViewById(R.id.wschodAzymutInput);
+
+        zachod = rootView.findViewById(R.id.zachodCzasInput);
+        zachodaz = rootView.findViewById(R.id.zachodAzymutInput);
+
+        zmierzch = rootView.findViewById(R.id.zmierzchInput);
+        swit = rootView.findViewById(R.id.switInput);
+
+        wsporzedne = rootView.findViewById(R.id.wspolrzedne);
+
+
+        doThis();
 
         return rootView;
+    }
+
+    @Override
+    public void onStop() {
+        thread.interrupt();
+        isCreated = true;
+        super.onStop();
+    }
+
+    @Override
+    public void onStart() {
+        if(isCreated == true)
+            doThis();
+
+
+        super.onStart();
     }
 }

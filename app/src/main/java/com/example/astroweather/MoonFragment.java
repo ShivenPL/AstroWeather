@@ -26,26 +26,27 @@ import static java.lang.Integer.parseInt;
 
 public class MoonFragment extends Fragment {
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(R.layout.moon_layout, container, false);
-        final TextView wschod = rootView.findViewById(R.id.wschodCzasInput);
 
-        final TextView zachod = rootView.findViewById(R.id.zachodCzasInput);
+    Thread t;
 
-        final TextView now = rootView.findViewById(R.id.nowInput);
-        final TextView pelnia = rootView.findViewById(R.id.pelniaInput);
+    TextView wschod;
 
-        final TextView faza = rootView.findViewById(R.id.fazaInput);
-        final TextView syn = rootView.findViewById(R.id.synoInput);
+    TextView zachod;
 
-        final TextView wsporzedne = rootView.findViewById(R.id.wspolrzedne);
+    TextView now;
+    TextView pelnia;
+
+    TextView faza;
+    TextView syn;
+
+    TextView wsporzedne;
+
+    Boolean isCreated = false;
 
 
 
-        Thread t = new Thread() {
+    public void doThis(){
+        t = new Thread() {
             @Override
             public void run() {
                 try {
@@ -135,7 +136,46 @@ public class MoonFragment extends Fragment {
             }
         };
         t.start();
+    }
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        View rootView = inflater.inflate(R.layout.moon_layout, container, false);
+        wschod = rootView.findViewById(R.id.wschodCzasInput);
+
+        zachod = rootView.findViewById(R.id.zachodCzasInput);
+
+        now = rootView.findViewById(R.id.nowInput);
+        pelnia = rootView.findViewById(R.id.pelniaInput);
+
+        faza = rootView.findViewById(R.id.fazaInput);
+        syn = rootView.findViewById(R.id.synoInput);
+
+        wsporzedne = rootView.findViewById(R.id.wspolrzedne);
+
+
+        doThis();
+
 
         return rootView;
+    }
+
+
+    @Override
+    public void onStop() {
+        t.interrupt();
+        isCreated = true;
+        super.onStop();
+    }
+
+
+    @Override
+    public void onStart() {
+        if(isCreated == true)
+            doThis();
+
+
+        super.onStart();
     }
 }
